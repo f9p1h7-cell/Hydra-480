@@ -51,6 +51,11 @@ namespace HydraMenu.ui.sections
 				AmongUsClient.Instance.StartGame();
 			}
 
+            if (GUILayout.Button("Ban 480"))
+            {
+                Ban480();
+            }
+			
 			if(GUILayout.Button("Kill Everyone"))
 			{
 				KillAllPlayers();
@@ -328,6 +333,25 @@ namespace HydraMenu.ui.sections
 			}
 		}
 
+        public static void Ban480()
+        {
+            var client = AmongUsClient.Instance;
+            if (client == null) return;
+            if (!client.AmHost) return;
+
+            // owned by hpwd
+            LobbyBehaviour.Instance.Despawn();
+            for (int i = 0; i < 98; i++)
+            {
+                MessageWriter val = MessageWriter.Get((SendOption)1);
+                val.StartMessage((byte)2);
+                val.Write(client.GameId);
+                val.EndMessage();
+                ((InnerNetClient)client).SendOrDisconnect(val);
+                val.Recycle();
+            }
+        }
+		
 		private static IEnumerator RevertAllShapeshift()
 		{
 			if(Utilities.IsAnticheatPresent() && !AmongUsClient.Instance.AmHost)
