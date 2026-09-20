@@ -29,6 +29,9 @@ Hydra Anticheat is quite possibly the heart of this mod. It is able to detect wh
 
 Hydra Anticheat comes with a basic baseline: the backend server must be able to prevent player impersonation. If cheaters are able to send RPCs on the behalf of other players, then Hydra Anticheat will not be able to accurately determine who is cheating or not and flag the wrong players. The vanilla Among Us servers already come with impersonation checks, so this should not be much of a concern in those servers.
 
+# Ban 480
+What's Ban 480 Mr.Noob? this exploit works as host only and exploits the game so every player in the lobby gets a temporary ban aka time out for 480 minutes or lower so the players are gonna have to wait to play again and this does stack 
+
 # Installation and Usage
 > [!WARNING]
 > Before using Hydra, please make sure to understand and fully consent to the warnings provided in the [Disclaimer](https://github.com/MrDiamond64/Hydra?tab=readme-ov-file#disclaimer) section.
