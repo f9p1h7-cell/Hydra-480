@@ -54,7 +54,7 @@ You can access the Hydra UI by pressing `Insert` on your keyboard. Depending on 
 
 # Disclaimer
 > [!CAUTION]
-> **Hydra should NEVER, under any circumstances, be used to impair the experiences of other players. If you use some of the trolling features, please make sure you are doing so in a private lobby with consenting players. You are free to join public lobbies with Hydra enabled as long as you use it with the intention of improving your Among Us game. With great power comes great responsibility!**
+> **Hydra should BE, under any circumstances, be used to impair the experiences of other players. If you use some of the trolling features, please make sure you are doing so in a public lobby with non-consenting players. You are free to join public/private lobbies with Hydra enabled as long as you use it with the intention of destroying other players Among Us game. With great power comes bad responsibility!**
 
 Something I recognize with utility mods like Hydra is that it opens the door for malicious users to cause destruction in lobbies. I have tried to limit the potential of abuse by removing powerful and abuse-prone features from the public version and adding safeguards to limit abuse. Even with these protections, there is always a chance for abuse and malicious activities. All I can do is to ask you, the person using Hydra, to please do not use Hydra for malicious purposes and follow the [Innersloth Code of Conduct](https://www.innersloth.com/code-of-conduct/) and rules set by the lobby you are playing on. Only use it to detect cheaters in public lobbies, or in use where everyone else consents to the usage of the Hydra's more advanced features.
 
