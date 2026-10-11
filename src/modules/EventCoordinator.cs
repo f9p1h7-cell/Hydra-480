@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using Hazel;
+using HydraMenu.assets;
 using HydraMenu.network;
 using HydraMenu.ui.sections;
 using Il2CppInterop.Runtime;
@@ -143,7 +144,7 @@ namespace HydraMenu.modules
 				if(clientData != null)
 				{
 					PlatformSpecificData platformData = clientData.PlatformData;
-					Hydra.Log.LogMessage($"[PlayerLogger] {clientData.PlayerName} ({__instance.NetId}) joined on {platformData.Platform}. Friendcode {clientData.FriendCode}, PUID {clientData.ProductUserId}");
+					Hydra.Log.LogMessage($"[PlayerLogger] {clientData.PlayerName} ({__instance.NetId}) joined on {GameAssets.GetPlatformName(platformData.Platform)}. Friendcode {clientData.FriendCode}, PUID {clientData.ProductUserId}");
 				}
 				else
 				{
@@ -378,7 +379,7 @@ namespace HydraMenu.modules
 			{
 				NetworkedPlayerInfo voter = GameData.Instance.GetPlayerById(srcPlayerId);
 				NetworkedPlayerInfo votee = GameData.Instance.GetPlayerById(suspectPlayerId);
-				if(voter == null || votee == null) return;
+				if(voter == null) return;
 
 				PublishEvent(OnPlayerCastVote, voter, votee);
 			}
@@ -419,8 +420,6 @@ namespace HydraMenu.modules
 					if(!inOld && inNew)
 					{
 						NetworkedPlayerInfo votee = GameData.Instance.GetPlayerById(voteeId);
-						if(votee == null) continue;
-
 						PublishEvent(OnPlayerCastVote, player.Data, votee);
 					}
 				}

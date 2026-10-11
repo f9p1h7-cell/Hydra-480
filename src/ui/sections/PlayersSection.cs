@@ -149,7 +149,7 @@ namespace HydraMenu.ui.sections
 					$"\nFriendcode: " + (streamerMode ? "REDACTED" : target.Data.FriendCode) +
 					$"\nPUID: " + (streamerMode ? "REDACTED" : target.Data.Puid) +
 					$"\nLevel: {target.Data.PlayerLevel + 1}" +
-					$"\nDevice: {platform.Platform}" +
+					$"\nDevice: {GameAssets.GetPlatformName(platform.Platform)}" +
 					(target.OwnerId == AmongUsClient.Instance.HostId ? "\nHost: true" : "");
 			}
 
@@ -160,7 +160,12 @@ namespace HydraMenu.ui.sections
 			Hydra.routines.playerFollower.Enabled = Controls.PlayerSpecificToggle("Follow", target, ref Hydra.routines.playerFollower.target);
 			Hydra.routines.jailPlayer.Enabled = Controls.PlayerSpecificToggle("Place in Jail", target, Hydra.routines.jailPlayer.targets);
 			Hydra.routines.teleportSpammer.Enabled = Controls.PlayerSpecificToggle("Spam Teleports", target, Hydra.routines.teleportSpammer.targets);
-			Hydra.routines.ziplineSpammer.Enabled = Controls.PlayerSpecificToggle("Spam Zipline", target, Hydra.routines.ziplineSpammer.targets);
+
+			if(!hasAnticheat)
+			{
+				Hydra.routines.ziplineSpammer.Enabled = Controls.PlayerSpecificToggle("Spam Zipline", target, Hydra.routines.ziplineSpammer.targets);
+			}
+
 			ModuleManager.whisper.Enabled = Controls.PlayerSpecificToggle("Whisper", target, ref ModuleManager.whisper.target);
 
 			GUILayout.BeginHorizontal();
