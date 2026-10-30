@@ -21,7 +21,9 @@ namespace HydraMenu.modules
 		public static BlockLowLevels blockLowLevels = new BlockLowLevels();
 		public static DisableGameEnd disableGameEnd = new DisableGameEnd();
 		public static DisableMeetings disableMeetings = new DisableMeetings();
+		public static DisableSporeTriggers disableSporeTriggers = new DisableSporeTriggers();
 		public static DisableVentClean disableVentClean = new DisableVentClean();
+		public static DisableZipline disableZipline = new DisableZipline();
 		public static FakeShapeshiftBubble fakeShapeshiftBubble = new FakeShapeshiftBubble();
 		public static FlipSkeld flipSkeld = new FlipSkeld();
 		public static TempBanAll tempBanAll = new TempBanAll();
@@ -77,6 +79,7 @@ namespace HydraMenu.modules
 		public static AlwaysVisibleChat alwaysVisibleChat = new AlwaysVisibleChat();
 		public static Fullbright fullbright = new Fullbright();
 		public static NoSeekerAnimation noSeekerAnimation = new NoSeekerAnimation();
+		public static RealtimeVotes realtimeVotes = new RealtimeVotes();
 		public static ShowAnonymousVotes showAnonymousVotes = new ShowAnonymousVotes();
 		public static ShowGhostMessages showGhostMessages = new ShowGhostMessages();
 		public static ShowGhosts showGhosts = new ShowGhosts();
@@ -94,7 +97,9 @@ namespace HydraMenu.modules
 				blockLowLevels,
 				disableGameEnd,
 				disableMeetings,
+				disableSporeTriggers,
 				disableVentClean,
+				disableZipline,
 				fakeShapeshiftBubble,
 				flipSkeld,
 				tempBanAll,
@@ -143,6 +148,7 @@ namespace HydraMenu.modules
 				alwaysVisibleChat,
 				fullbright,
 				noSeekerAnimation,
+				realtimeVotes,
 				showAnonymousVotes,
 				showGhostMessages,
 				showGhosts,
