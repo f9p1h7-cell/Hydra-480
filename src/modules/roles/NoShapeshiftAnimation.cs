@@ -4,7 +4,7 @@ namespace HydraMenu.modules.roles
 {
 	internal class NoShapeshiftAnimation : Module
 	{
-		public NoShapeshiftAnimation() : base("NoShapeshiftAnimation") { }
+		public NoShapeshiftAnimation() : base("NoShapeshiftAnimation", [ typeof(FakeShapeshiftBubble) ]) { }
 
 		private static NoShapeshiftAnimation Instance
 		{
@@ -32,6 +32,15 @@ namespace HydraMenu.modules.roles
 				if(!Instance.Enabled) return;
 
 				shouldAnimate = false;
+			}
+		}
+
+		protected override void OnEnable()
+		{
+			if(ModuleManager.fakeShapeshiftBubble.Enabled)
+			{
+				Hydra.notifications.Send("No Shapeshift Animation", "The Fake Shapeshift Bubble module is incompatible with this module, so it has been disabled.", 5);
+				ModuleManager.fakeShapeshiftBubble.Enabled = false;
 			}
 		}
 	}
