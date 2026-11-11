@@ -10,6 +10,7 @@ namespace HydraMenu.network
 	{
 		public readonly MessageWriter writer;
 		public readonly int targetClientId;
+		public bool skipLocalHandling = false;
 		public int msgCount = 0;
 
 		public BatchedMessage(int targetClientId = (int)OwnerIds.Everyone)
@@ -32,12 +33,12 @@ namespace HydraMenu.network
 
 		private bool IsGlobal
 		{
-			get { return targetClientId == (int)OwnerIds.Everyone; }
+			get { return !skipLocalHandling && targetClientId == (int)OwnerIds.Everyone; }
 		}
 
 		private bool AmTarget
 		{
-			get { return targetClientId == AmongUsClient.Instance.ClientId; }
+			get { return !skipLocalHandling && targetClientId == AmongUsClient.Instance.ClientId; }
 		}
 
 		public void QueueDataFlag(uint netId, MessageWriter msg)
@@ -210,6 +211,34 @@ namespace HydraMenu.network
 			writer.Write((byte)RpcCalls.SetScanner);
 			writer.Write(scanning);
 			writer.Write(seq);
+			writer.EndMessage();
+
+			msgCount++;
+		}
+
+		public void QueueSetStartCounter(PlayerControl source, sbyte counter)
+		{
+			QueueSetStartCounter(source, counter, source.LastStartCounter + 1);
+		}
+
+		public void QueueSetStartCounter(PlayerControl source, sbyte counter, int seqId)
+		{
+			if(IsGlobal || AmTarget)
+			{
+				if(GameStartManager.InstanceExists)
+				{
+					source.LastStartCounter = seqId;
+					GameStartManager.Instance.SetStartCounter(counter);
+				}
+
+				if(AmTarget) return;
+			}
+
+			writer.StartMessage((byte)GameDataTypes.RpcFlag);
+			writer.WritePacked(source.NetId);
+			writer.Write((byte)RpcCalls.SetStartCounter);
+			writer.WritePacked(seqId);
+			writer.Write(counter);
 			writer.EndMessage();
 
 			msgCount++;
@@ -542,6 +571,24 @@ namespace HydraMenu.network
 			msgCount++;
 		}
 
+		public void QueuePet(PlayerControl source, Vector2 playerPos, Vector2 petPos)
+		{
+			if(IsGlobal || AmTarget)
+			{
+				source.MyPhysics.PetPet(playerPos, petPos);
+				if(AmTarget) return;
+			}
+
+			writer.StartMessage((byte)GameDataTypes.RpcFlag);
+			writer.WritePacked(source.MyPhysics.NetId);
+			writer.Write((byte)RpcCalls.Pet);
+			NetHelpers.WriteVector2(playerPos, writer);
+			NetHelpers.WriteVector2(petPos, writer);
+			writer.EndMessage();
+
+			msgCount++;
+		}
+
 		public void QueueUseZipline(PlayerControl source, ZiplineBehaviour zipline, bool fromTop)
 		{
 			if(IsGlobal || AmTarget)
@@ -571,6 +618,24 @@ namespace HydraMenu.network
 			writer.WritePacked(source.NetId);
 			writer.Write((byte)RpcCalls.TriggerSpores);
 			writer.Write(mushroom.Id);
+			writer.EndMessage();
+
+			msgCount++;
+		}
+
+		public void QueueLobbyTimeExpiring(int timer)
+		{
+			if(IsGlobal || AmTarget)
+			{
+				LobbyBehaviour.Instance.HandleLobbyTimerExtensionRequest(timer, false, 255, 0, 0);
+				if(AmTarget) return;
+			}
+
+			writer.StartMessage((byte)GameDataTypes.RpcFlag);
+			writer.WritePacked(LobbyBehaviour.Instance.NetId);
+			writer.Write((byte)RpcCalls.LobbyTimeExpiring);
+			writer.WritePacked(timer);
+			writer.Write(false);
 			writer.EndMessage();
 
 			msgCount++;
